@@ -1,6 +1,4 @@
 <?php
-$percentiles = 0.95;
-
 if (count($argv) < 2) {
     echo "script preserves log from from rrd file\n";
     echo "usage: php {$argv[0]} xai|retn|utt|/path/to/file.rrd (--debug)\n";

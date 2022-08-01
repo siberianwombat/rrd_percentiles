@@ -51,7 +51,20 @@ class rrd {
         return $values;
     }
 
+    public function readLogFile($filename, $prefix) {
+        $fp = @fopen($filename, "r");
+        if (!$fp) return false;
+        $prefixLen = strlen($prefix);
+        $log = array();
+        while (($data = fgetcsv($fp, 1024, ",")) !== FALSE) {
+            if (substr($data[0], 0, $prefixLen) === $prefix) $log[] = $data;
+        }
+        fclose($fp);
+        return $log;
+    }
+
     public function percentileMax($arr, $perc) {
+        if (count($arr) === 0) return 0;
         sort($arr);
         $percentile_position = (int)(count($arr) * $perc);
         $percentileValue = $arr[$percentile_position];
